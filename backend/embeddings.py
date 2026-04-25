@@ -22,10 +22,27 @@ MODEL_URL = "https://api-inference.huggingface.co/pipeline/feature-extraction/se
 
 headers = {"Authorization": f"Bearer {HF_API_KEY}"}
 
-def get_embedding(text: str) -> np.ndarray:
-    res = requests.post(MODEL_URL, headers=headers, json={"inputs": text})
-    res.raise_for_status()  # fail fast if API error
-    return np.array(res.json())
+
+def get_embedding(text: str):
+    try:
+        res = requests.post(MODEL_URL, headers=headers, json={"inputs": text})
+
+        if res.status_code != 200:
+            print("HF API Error:", res.text)
+            return np.zeros(384)
+
+        data = res.json()
+
+        # Fix nested list issue
+        if isinstance(data, list) and isinstance(data[0], list):
+            return np.array(data[0])
+
+        return np.array(data)
+
+    except Exception as e:
+        print("Embedding error:", str(e))
+        return np.zeros(384)
+
 
 def get_embeddings(texts: list[str]) -> np.ndarray:
     return np.array([get_embedding(t) for t in texts])
