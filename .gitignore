@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+.env
+*.egg-info/
+
+# ChromaDB (large vector DB files)
+backend/chroma_db/
+
+# Node / Next.js
+node_modules/
+.next/
+.env.local
+
+# ML Models (huge - auto-downloaded at runtime)
+# sentence-transformers downloads to ~/.cache by default
+# but if cached locally:
+*.bin
+*.safetensors
+models/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+*.log
+dist/
+build/
