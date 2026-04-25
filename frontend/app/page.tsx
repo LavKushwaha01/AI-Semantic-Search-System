@@ -99,12 +99,12 @@ export default function Home() {
     setSearched(true)
 
     try {
-      const res = await fetch(`http://localhost:8000/search?q=${encodeURIComponent(q)}&mode=${m}`)
+      const res = await fetch(`http://3.80.45.85:8000/search?q=${encodeURIComponent(q)}&mode=${m}`)
       const data = await res.json()
       setResults(data.results)
 
       if (compareMode) {
-        const res2 = await fetch(`http://localhost:8000/search?q=${encodeURIComponent(q)}&mode=keyword`)
+        const res2 = await fetch(`http://3.80.45.85:8000/search?q=${encodeURIComponent(q)}&mode=keyword`)
         const data2 = await res2.json()
         setKeywordResults(data2.results)
       }
